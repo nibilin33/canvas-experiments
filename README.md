@@ -1,2 +1,2 @@
-# learning-webgpu
-webgpu
+# canvas-experiments
+
