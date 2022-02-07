@@ -1,12 +1,15 @@
 
 import Stats from 'stats.js';
 let canvas = null;
-const  SPACING = 3,
-MARGIN = 100,
-ROWS = 100,
-COLS = 300,
-NUM_PARTICLES = ROWS * COLS,
-COLOR = 220;
+const SPACING = 3,
+    MARGIN = 100,
+    ROWS = 100,
+    COLS = 300,
+    NUM_PARTICLES = ROWS * COLS,
+    DRAG = 0.95,
+    EASE = 0.25,
+    THICKNESS = Math.pow(80, 2),
+    COLOR = 220;
 const particle = {
     vx: 0,
     vy: 0,
@@ -43,20 +46,35 @@ for (let i = 0; i < imageData.data.length; i += 4) {
  */
 function animate() {
     stats.begin();
+    // monitored code goes here
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+    let imageData = ctx.createImageData(w, canvas.height);
+    let t = +new Date() * 0.001;
+    let mx = w * 0.5 + (Math.cos(t * 2.1) * Math.cos(t * 0.9) * w * 0.45),
+        my = h * 0.5 + (Math.sin(t * 3.2) * Math.tan(Math.sin(t * 0.8)) * h * 0.45);
+    let dy, dx;
+    for (let i = 0; i < NUM_PARTICLES; i++) {
+        let p = particleList[i];
+        let d = (dx = mx - p.x) * dx + (dy = my - p.y) * dy;
+        let f = -THICKNESS / d;
 
-	// monitored code goes here
-    const ctx = canvas.getContext( '2d' );
-    let imageData = ctx.createImageData(canvas.width,canvas.height);
-    // for ( let i = 0; i < NUM_PARTICLES; i++ ) {
-    //     let p = particleList[i];
-    //     console.log( ~~p.x, "createImageData");
-    //     //let n = 
-    //     // b[n = ( ~~p.x + ( ~~p.y * w ) ) * 4] = 
-    //     // b[n+1] = b[n+2] = COLOR, b[n+3] = 255;
-    // }
-	stats.end();
-
-	requestAnimationFrame( animate ); 
+        if (d < THICKNESS) {
+            t = Math.atan2(dy, dx);
+            p.vx += f * Math.cos(t);
+            p.vy += f * Math.sin(t);
+        }
+        p.x += (p.vx *= DRAG) + (p.originX - p.x) * EASE;
+        p.y += (p.vy *= DRAG) + (p.originY - p.y) * EASE;
+        let n = (~~p.x + (~~p.y * w)) * 4;
+        imageData.data[n] = COLOR;
+        imageData.data[n + 1] = COLOR;
+        imageData.data[n + 2] = COLOR;
+        imageData.data[n + 3] = 255;
+    }
+    ctx.putImageData(imageData, 0, 0);
+    stats.end();
+    requestAnimationFrame(animate);
 }
 function init() {
     canvas = document.getElementById("particles");
@@ -64,20 +82,19 @@ function init() {
     canvas.height = ROWS * SPACING + MARGIN * 2;
     particleList = Array.from({
         length: NUM_PARTICLES
-    }).map((i,index)=>{
-        let p = Object.create( particle );
-        p.x = p.originX = MARGIN + SPACING * ( i % COLS );
-        p.y = p.originY = MARGIN + SPACING * Math.floor( i / COLS );
+    }).map((it, i) => {
+        let p = Object.create(particle);
+        p.x = p.originX = MARGIN + SPACING * (i % COLS);
+        p.y = p.originY = MARGIN + SPACING * Math.floor(i / COLS);
         return p;
     });
-    if ( typeof Stats === 'function' ) {
+    if (typeof Stats === 'function') {
         stats = new Stats();
-        document.body.appendChild( stats.dom );
+        document.body.appendChild(stats.dom);
     }
-    requestAnimationFrame( animate );
+    animate();
 }
 
-window.onload = function() {
-    console.log("init");
+window.onload = function () {
     init();
 }
