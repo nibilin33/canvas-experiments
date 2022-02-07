@@ -20,6 +20,7 @@ function getPages() {
       );
     }
   });
+  console.log(pageConfig);
   return {
     entry: pageConfig,
     plugins
@@ -37,9 +38,10 @@ module.exports = {
   devServer: {
     static: {
       directory: path.join(__dirname, 'docs'),
+      publicPath: '/canvas'
     },
     compress: true,
-    port: 9000,
+    port: 9004
   },
   optimization: {
     splitChunks: {
