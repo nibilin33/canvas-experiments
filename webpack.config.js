@@ -20,7 +20,6 @@ function getPages() {
       );
     }
   });
-  console.log(pageConfig);
   return {
     entry: pageConfig,
     plugins
@@ -33,12 +32,13 @@ module.exports = {
     filename: "[name].[chunkhash].js",
     chunkFilename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, "docs"),
-    crossOriginLoading: 'anonymous'
+    crossOriginLoading: 'anonymous',
+    publicPath: '/canvas-experiments'
   },
   devServer: {
     static: {
       directory: path.join(__dirname, 'docs'),
-      publicPath: '/canvas'
+      publicPath: '/canvas-experiments'
     },
     compress: true,
     port: 9004
@@ -49,12 +49,6 @@ module.exports = {
     },
   },
   entry: pageConfig.entry,
-  output: {
-    filename: "[name].[chunkhash].js",
-    chunkFilename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, "docs"),
-    crossOriginLoading: 'anonymous'
-  },
   plugins: pageConfig.plugins
 };
 
