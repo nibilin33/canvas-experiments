@@ -6,7 +6,7 @@ const SPACING = 3,
     ROWS = 100,
     COLS = 300,
     NUM_PARTICLES = ROWS * COLS,
-    DRAG = 0.95,
+    DRAG = 0.98,
     EASE = 0.25,
     THICKNESS = Math.pow(80, 2),
     COLOR = 220;
@@ -51,15 +51,19 @@ function animate() {
     const w = canvas.width, h = canvas.height;
     let imageData = ctx.createImageData(w, canvas.height);
     let t = +new Date() * 0.001;
+    // mx,my 目标要移动的粒子的坐标
     let mx = w * 0.5 + (Math.cos(t * 2.1) * Math.cos(t * 0.9) * w * 0.45),
         my = h * 0.5 + (Math.sin(t * 3.2) * Math.tan(Math.sin(t * 0.8)) * h * 0.45);
+    
     let dy, dx;
     for (let i = 0; i < NUM_PARTICLES; i++) {
         let p = particleList[i];
+        // 两个粒子的距离平方
         let d = (dx = mx - p.x) * dx + (dy = my - p.y) * dy;
         let f = -THICKNESS / d;
-
+        // 如果两个粒子距离小于目标距离
         if (d < THICKNESS) {
+            // 通过x,y获取角度
             t = Math.atan2(dy, dx);
             p.vx += f * Math.cos(t);
             p.vy += f * Math.sin(t);
