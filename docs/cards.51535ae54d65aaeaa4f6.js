@@ -1,0 +1,1 @@
+window.onload=function(){new Swiper(".cards",{effect:"cards",grabCursor:!0})};

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+    <meta name="HandheldFriendly" content="True">
+    <link crossorigin="anonymous" integrity="sha512-pJrGHWDVOeiy4UkMtHu0fpD8oLLssFcaW0fsVXUkA1/jDLopa554Z1AZo5SKtekHnnmyat0ipiP0snKDrt0GNg==" href="https://lib.baomitu.com/Swiper/8.4.4/swiper-bundle.min.css" rel="stylesheet">
+    <title>Cards</title>
+    </head>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://galxe.com/_nuxt/img/moon.d8f1a0a.png');
+            background-color: black;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .swiper-cards{
+            width: 250px;
+            height: 400px;
+            transform-style: preserve-3d;
+        }
+        .swiper-slide{
+            transform-style: preserve-3d;
+            text-align: center;
+            pointer-events: none;
+            transform: translateZ(0);
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            margin: auto;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            display: flex;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .swiper-slide::after {
+            content: " ";
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            border-radius: 25%;
+            left: 0;
+            bottom: -20px;
+            box-shadow: 0 20px 20px rgba(255, 0, 0, 0.5);
+        }
+        .swiper-slide:nth-child(2n){
+            background-color: blueviolet;
+        }
+        #particles{
+            position: absolute;
+            z-index:0;
+        }
+    </style>
+    <body>
+        <canvas id="particles"></canvas>
+        <div id="app" class="cards">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">slider1</div>
+                <div class="swiper-slide">slider2</div>
+                <div class="swiper-slide">slider3</div>
+                <div class="swiper-slide">slider4</div>
+            </div>
+           
+        </div>
+    </body>
+    <script crossorigin="anonymous" integrity="sha512-k2o1KZdvUi59PUXirfThShW9Gdwtk+jVYum6t7RmyCNAVyF9ozijFpvLEWmpgqkHuqSWpflsLf5+PEW6Lxy/wA==" src="https://lib.baomitu.com/Swiper/8.4.4/swiper-bundle.min.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/proton-engine/5.4.5/proton.min.js"></script> -->
+</html>
