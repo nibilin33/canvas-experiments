@@ -1,0 +1,50 @@
+<style>/* Add your css styles here */</style><!doctype html><html><head><meta charset="utf-8"><script src="https://unpkg.com/vue@2.7.10/dist/vue.js"></script><title>Graphql</title></head><body><div id="app"><input v-model="inputValue" @keyup.enter="search"/> {{ emoji }}</div><script defer="defer" src="/canvas-experiments/graphql.93e0032067a24500bba2.js"></script></body></html><script>// TODO:
+   // (1) add the country code input.
+   // (2) use GraphQL to query country emoji from https://countries.trevorblades.com/
+   // (3) complete some bonus task if you have time.
+   const GRAPHQL_URL = 'https://countries.trevorblades.com/graphql';
+   const query = async (data) => {
+     const payload = JSON.stringify({
+       query: {
+           country: data
+       }
+     });
+     const response = await fetch(
+       GRAPHQL_URL,
+       {
+         method: 'POST',
+         body: payload,
+       }
+     );
+     body = await response.json();
+     return {
+         ret: response.status,
+         data: body.data
+     }
+   }
+   
+   var app = new Vue({
+     el: '#app',
+     data: {
+       emoji: '',
+       inputValue: ''
+     },
+     created() {
+         this.timeout = null;
+     },
+     methods: {
+         search() {
+             if(this.timeout) {
+                 return;
+             }
+             console.log(this.inputValue);
+             this.timeout = setTimeout(()=>{
+                   query(this.inputValue)
+                       .then((res)=>{
+                           clearTimeout(this.timeout);
+                           console.log(res);
+                       })  
+             },100);
+         }
+     }
+   });</script>

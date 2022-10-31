@@ -1,0 +1,141 @@
+<style type="text/css">
+  /* Add your css styles here */
+</style>
+<!-- Enter your HTML code here -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+    <script src="https://unpkg.com/vue@2.7.10/dist/vue.js"></script>
+    <title>Graphql</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url('https://galxe.com/_nuxt/img/moon.d8f1a0a.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: right;
+        background-color: black;
+      }
+      #app {
+        width: 25vh;
+        height: 20vh;
+      }
+      .input {
+        box-sizing: border-box;
+        margin: 0;
+        font-variant: tabular-nums;
+        list-style: none;
+        font-feature-settings: 'tnum';
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        min-width: 0;
+        padding: 4px 11px;
+        color: #fff;
+        font-size: 14px;
+        line-height: 1.5715;
+        background-color: transparent;
+        background-image: none;
+        border: 1px solid #d9d9d9;
+        border-radius: 2px;
+        transition: all 0.3s;
+      }
+      .emoj{
+        font-size: 20px;
+        background-color: #fff;
+        padding: 10px;
+      }
+      .country-name{
+        font-size: 14px;
+        padding-left: 10px;
+        line-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <input class="input" placeholder="Please enter country code" v-model="inputValue" @input="search" />
+      <div class="emoj" v-if="emoji && inputValue">{{ emoji }}  <span class="country-name">{{name}}</span></div>
+    </div>
+  </body>
+</html>
+<script type="text/javascript">
+  // TODO:
+  // (1) add the country code input.
+  // (2) use GraphQL to query country emoji from https://countries.trevorblades.com/
+  // (3) complete some bonus task if you have time.
+  const GRAPHQL_URL = 'https://countries.trevorblades.com/graphql';
+  const query = async (data) => {
+     const payload = JSON.stringify({
+       query: `{country(code:"${data}"){emoji,code,name}}`
+     });
+    // const payload = JSON.stringify({
+    //   query: `{countries{emoji,code,name}}`
+    // });
+    const response = await fetch(GRAPHQL_URL, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: payload
+    });
+    try {
+      const res = await response.json();
+      return {
+        ret: response.status,
+        data: res.data
+      };
+    } catch (error) {
+      return {
+        ret: response.status,
+        data: []
+      };
+    }
+  };
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      emoji: '',
+      inputValue: '',
+      name: ''
+    },
+    created() {
+      this.timeout = null;
+    },
+    desctroy() {
+        clearTimeout(this.timeout);
+    },
+    methods: {
+      search() {
+        if (this.timeout) {
+          clearTimeout(this.timeout);
+        }
+        this.reset();
+        const searchValue = this.inputValue.toUpperCase();
+        this.timeout = setTimeout(() => {
+          query(searchValue).then((res) => {
+            clearTimeout(this.timeout);
+            if(res.data && res.data.country) {
+                this.emoji = res.data.country.emoji;
+                this.name = res.data.country.name;
+            }else{
+                this.emoji = 'Sorry!';
+                this.name = 'Not Found';
+            }
+          });
+        }, 500);
+      },
+      reset() {
+        this.emoji = '';
+        this.name = '';
+      }
+    }
+  });
+</script>

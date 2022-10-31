@@ -12,9 +12,6 @@
             background-size: contain;
             background-position: right;
             height: 100vh;
-            transform-style: preserve-3d;
-            perspective: 300px;
-      
         }
         .glass, .result {
             width: 2.5rem;
@@ -28,10 +25,11 @@
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
-            /* transform-style: preserve-3d; */
+            perspective: 1300px;
+            transform-style: preserve-3d;
             backface-visibility: hidden;
             position: absolute;
-            transition: transform 0.8s;
+            transition: ease-out 1s;
         }
         .glass-transform{
             transform: rotateY(180deg);
@@ -80,4 +78,4 @@
             color: transparent;
             text-shadow: none;
             font-size: 0.2rem;
-        }</style><body><div id="app"><main><div class="glass"><div class="logo"></div><div class="button"><text class="rainbow-text">连接钱包</text><div class="progress-bar"></div></div></div><div class="result">结果</div></main></div><script defer="defer" src="/canvas-experiments/login.def523ec666a98541266.js"></script></body></html>
+        }</style><body><div id="app"><main><div class="glass"><div class="logo"></div><div class="button"><text class="rainbow-text">Connect</text><div class="progress-bar"></div></div></div><div class="result">Account</div></main></div><script defer="defer" src="/canvas-experiments/login.def523ec666a98541266.js"></script></body></html>

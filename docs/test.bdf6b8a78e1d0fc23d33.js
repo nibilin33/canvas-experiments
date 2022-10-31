@@ -1,0 +1,1 @@
+(()=>{try{fetch("https://countries.trevorblades.com/graphql",{query:'{country:"BR"}'}).then((o=>{console.log(o)})),console.log(res)}catch(o){console.log("err",o)}})();
