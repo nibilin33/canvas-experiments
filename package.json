@@ -34,10 +34,10 @@
   "homepage": "https://github.com/nibilin33/canvas-experiments#readme",
   "devDependencies": {
     "html-webpack-plugin": "^5.5.0",
+    "prettier": "^2.4.1",
     "webpack": "^5.68.0",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4",
-    "prettier": "^2.4.1"
+    "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
     "stats.js": "^0.17.0"
