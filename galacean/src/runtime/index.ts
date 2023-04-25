@@ -1,7 +1,9 @@
 import {
+  Animator,
   BlinnPhongMaterial,
   Camera,
   Entity,
+  GLTFResource,
   MeshRenderer,
   PrimitiveMesh,
   Vector3,
@@ -74,5 +76,31 @@ export function createRuntime() {
   renderer.mesh = PrimitiveMesh.createCuboid(engine);
   renderer.setMaterial(mtl);
 
+  engine.run();
+}
+export function createGLft() {
+  const engine = new WebGLEngine("canvas");
+  engine.canvas.resizeByClientSize();
+  const rootEntity = engine.sceneManager.activeScene.createRootEntity();
+  const cameraEntity = rootEntity.createChild("camera");
+  cameraEntity.addComponent(Camera);
+  cameraEntity.transform.setPosition(3, 3, 3);
+  cameraEntity.addComponent(OrbitControl);
+  cameraEntity.addComponent(Stats);
+  
+  engine.sceneManager.activeScene.ambientLight.diffuseSolidColor.set(1, 1, 1, 1);
+  
+  engine.resourceManager
+    .load<GLTFResource>(
+      "/revenge.gltf"
+    )
+    .then((gltf) => {
+      const {
+        animations,
+        defaultSceneRoot
+      } = gltf;
+      rootEntity.addChild(defaultSceneRoot);
+    });
+  
   engine.run();
 }

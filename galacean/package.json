@@ -2,13 +2,14 @@
   "name": "vue-galacean",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview --host"
   },
   "dependencies": {
     "@galacean/engine": "^0.9",
     "@galacean/engine-lottie": "^1.0.0-beta.0",
+    "@galacean/engine-toolkit-controls": "^0.9.0",
     "@galacean/engine-toolkit-stats": "^0.9.0",
     "vue": "^3.2.0"
   },

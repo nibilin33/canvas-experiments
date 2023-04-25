@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { createRuntime, createLottie } from "./runtime";
+import { createRuntime, createLottie, createGLft } from "./runtime";
 
 onMounted(() => {
-  // createRuntime();
-  console.log('fuckkkkk')
-  createLottie()
+  createRuntime();
+  // createGLft();
 })
 </script>
 

@@ -14,6 +14,8 @@ y = a*x*x + b*x + c
 
 # galacean
 lottie 681.56 KiB / gzip: 182.38 KiB
+https://products.aspose.app/3d/conversion/gif-to-gltf/zh-cn         
+https://createjs.com/docs/easeljs/classes/Graphics.PolyStar.html          
 ## 动效降级
 高到低可以分别提供：视频动画/3D、Lottie 动画以及 CSS 动画           
 1.网络速度，简单处理可以用当前的网络是wifi、4g还是3g、2g来判断，来决定后续加载哪些图片            
@@ -21,7 +23,8 @@ lottie 681.56 KiB / gzip: 182.38 KiB
 3.帧率，可以用requestAnimationFrame的触发时间间隔来检测帧率，帧率低说明用户已经遇到了卡顿或者掉帧的情况，需要暂停帧动画来降低cpu占用     
 （借助 Web Performance Timing API 中的 Frame Timing API）                   
 ## 机型划分   
-https://github.com/facebook/device-year-class                
+https://github.com/facebook/device-year-class 
+https://github.com/wangerzi/3d-model-convert-to-gltf/blob/master/README_ZH.md                      
 动效降级的核心在于为合适的机型提供合适的动效，所以，动效降级的第一步是根据规则对不同机型划分不同级别。
 WebGL在Android 4.4 是不支持的，只能使用canvas进行降级       
 ## 兜底处理
